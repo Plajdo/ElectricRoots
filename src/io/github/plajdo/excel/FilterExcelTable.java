@@ -19,39 +19,51 @@ import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
+@SuppressWarnings("deprecation")
 public class FilterExcelTable{
 	
 	static int counter2 = 9;
 	static int counterPorc = 1;
+	static int totalParts = 0;
+	static int doneParts = 0;
+	static TableGUI gui = TableGUI.getInstance();
 	
-	public static void main(String[] args) throws Exception{
-		create();
-	}
-	
-	public static void create() throws Exception{
+	public static void create(File kmenFile, String outputDir) throws Exception{		
+		gui.setProgress(-1);
+		
+		/*
+		 * Reset just to be sure
+		 */
+		counter2 = 9;
+		counterPorc = 1;
+		totalParts = 0;
+		doneParts = 0;
+		
 		TreeSet<String> strediskaSet = new TreeSet<String>(); 
 		
-		Workbook kmen = Workbook.getWorkbook(new File("kmen.xls"));
-		
+		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
 		
 		for(int i = 0; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
 			
 			if(riadok[20].getContents().equals("Šašala")){
-				strediskaSet.add(riadok[7].getContents());
+				if(!strediskaSet.contains(riadok[7].getContents())){
+					strediskaSet.add(riadok[7].getContents());
+					totalParts++;
+				}
 				
 			}
 			
 		}
 		
-		ArrayList<String> strediskaList = new ArrayList<String>(strediskaSet);
+		totalParts *= 2;
 		
+		ArrayList<String> strediskaList = new ArrayList<String>(strediskaSet);
 		strediskaList.forEach((hs) -> {
 			try{
-				WritableWorkbook output = Workbook.createWorkbook(new File("outputs" + File.separator + "output_" + hs + ".xls"));
+				WritableWorkbook output = Workbook.createWorkbook(new File(outputDir + "output_" + hs + ".xls"));
 				WritableSheet sheet = output.createSheet("Sheet", 0);
 				
 				Alignment align_left = Alignment.LEFT;
@@ -185,6 +197,9 @@ public class FilterExcelTable{
 				sheet.addCell(entry34);
 				sheet.addCell(entry35);
 				
+				doneParts++;
+				setBar(getPercent(doneParts, totalParts));
+				
 				ArrayList<Polozka> polozkaList = new ArrayList<Polozka>();
 				
 				for(int j = 0; j < tabulka.getRows(); j++){
@@ -260,6 +275,10 @@ public class FilterExcelTable{
 				
 				counter2 = 9;
 				counterPorc = 1;
+				doneParts++;
+				setBar(getPercent(doneParts, totalParts));
+				System.out.println(doneParts);
+				System.out.println(getPercent(doneParts, totalParts));
 				
 				output.write();
 				output.close();
@@ -271,6 +290,15 @@ public class FilterExcelTable{
 		
 		kmen.close();
 		
+	}
+	
+	private static double getPercent(double stuff, double outof){
+		return stuff / outof * 100;
+		
+	}
+	
+	private static void setBar(double percent){
+		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
 	}
 	
 }
