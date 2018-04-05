@@ -123,7 +123,7 @@ public class FilterExcelTable{
 				sheet.mergeCells(10, 7, 11, 7);
 				sheet.mergeCells(12, 7, 14, 7);
 				
-				Label entry01 = new Label(0, 0, "Prevádzka: " + hs, thinFormat);
+				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs), thinFormat);
 				Label entry02 = new Label(0, 2, "Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
@@ -277,8 +277,6 @@ public class FilterExcelTable{
 				counterPorc = 1;
 				doneParts++;
 				setBar(getPercent(doneParts, totalParts));
-				System.out.println(doneParts);
-				System.out.println(getPercent(doneParts, totalParts));
 				
 				output.write();
 				output.close();
@@ -294,11 +292,26 @@ public class FilterExcelTable{
 	
 	private static double getPercent(double stuff, double outof){
 		return stuff / outof * 100;
-		
 	}
 	
 	private static void setBar(double percent){
 		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
+	}
+	
+	private static String getAddress(String hs){
+		/*
+		 * Do something like load from database, but nothing useful available right now, so... switch i guess
+		 */
+		switch(hs.substring(0, 5)){
+		case "65003":
+			return "V\u00DAB Lipany, N\u00E1m. Sv. Martina 8";
+		case "65005":
+			return "V\u00DAB Pre\u0161ov, Vihorlatsk\u00E1 2/A - ZOC MAX";
+		default:
+			return hs;
+
+		}
+		
 	}
 	
 }
