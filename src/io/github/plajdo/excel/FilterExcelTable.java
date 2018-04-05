@@ -300,11 +300,45 @@ public class FilterExcelTable{
 	
 	private static String getAddress(String hs){
 		/*
-		 * Do something like load from database, but nothing useful available right now, so... switch i guess
+		 * Do something like load from database, but nothing useful is available right now, so... manual switch i guess
 		 */
 		switch(hs.substring(0, 5)){
+		case "60000":
+			return "V\u00DAB Poprad, Mnohe\u013Eova 2832/9";
+		case "60001":
+			return hs;
+		case "60003":
+			return hs;
+		case "60006":
+			return "V\u00DAB Spi\u0161sk\u00E1 Bel\u00E1, N\u00E1mestie SNP 2522";
+		case "60007":
+			return "V\u00DAB Poprad, N\u00E1m. sv. Eg\u00EDdia 3290/124 - OC FORUM";
+		case "60009":
+			return "V\u00DAB Poprad, Dlhé Hony 4588/1 - ZOC MAX";
+		case "60100":
+			return "V\u00DAB Ro\u017E\u0148ava, \u0160af\u00E1rikova 21";
+		case "60200":
+			return hs;
+		case "60201":
+			return "V\u00DAB Levo\u010Da, N\u00E1mestie Majstra Pavla 38";
+		case "60202":
+			return hs;
+		case "60203":
+			return hs;
+		case "60204":
+			return hs;
+		case "60400":
+			return hs;	//More addresses for one place?
+		case "60401":
+			return "V\u00DAB Podol\u00EDnec, Sv\u00E4tej Anny 1";
+		case "65000":
+			return "V\u00DAB Pre\u0161ov, Masarykova 13";
+		case "65001":
+			return "V\u00DAB Sabinov, N\u00E1mestie slobody 623";
 		case "65003":
 			return "V\u00DAB Lipany, N\u00E1m. Sv. Martina 8";
+		case "65004":
+			return "V\\u00DAB Pre\u0161ov, Hlavn\u00E1 61";
 		case "65005":
 			return "V\u00DAB Pre\u0161ov, Vihorlatsk\u00E1 2/A - ZOC MAX";
 		default:
