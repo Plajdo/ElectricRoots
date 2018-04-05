@@ -338,7 +338,7 @@ public class FilterExcelTable{
 		case "65003":
 			return "V\u00DAB Lipany, N\u00E1m. Sv. Martina 8";
 		case "65004":
-			return "V\\u00DAB Pre\u0161ov, Hlavn\u00E1 61";
+			return "V\u00DAB Pre\u0161ov, Hlavn\u00E1 61";
 		case "65005":
 			return "V\u00DAB Pre\u0161ov, Vihorlatsk\u00E1 2/A - ZOC MAX";
 		default:
