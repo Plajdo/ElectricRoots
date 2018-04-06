@@ -362,7 +362,7 @@ public class FilterExcelTable{
 		case "65402":
 			return "V\u00DAB Medzilaborce, Mierova 289/1";
 		case "70000":
-			return "V\u00DAB Ko\u0161ice, Stroj\u00E1rensk\u00E1 11";	//2 addresses again, not good
+			return "V\u00DAB Ko\u0161ice, Stroj\u00E1renska 11";	//2 addresses again, not good
 		case "70001":
 			return "V\u00DAB Ko\u0161ice, Trieda L. Svobodu, po\u0161ta 22";
 		case "70002":
