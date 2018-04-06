@@ -341,6 +341,74 @@ public class FilterExcelTable{
 			return "V\u00DAB Pre\u0161ov, Hlavn\u00E1 61";
 		case "65005":
 			return "V\u00DAB Pre\u0161ov, Vihorlatsk\u00E1 2/A - ZOC MAX";
+		case "65050":
+			return hs;
+		case "65100":
+			return "V\u00DAB Svidn\u00EDk, Centr\u00E1lna 584/5";
+		case "65101":
+			return "V\u00DAB Stropkov, Mlynsk\u00E1 692/1";
+		case "65200":
+			return "V\u00DAB Vranov nad Top\u013Eou, N\u00E1mestie slobody 6";
+		case "65202":
+			return "V\u00DAB Hanu\u0161ovce nad Top\u013Eou, Komensk\u00E9ho 52";
+		case "65300":
+			return "V\u00DAB Bardejov, Kellerova 1";
+		case "65302":
+			return "V\u00DAB Giraltovce, Dukelsk\u00E1 58";
+		case "65400":
+			return "V\u00DAB Humenn\u00E9, N\u00E1mestie slobody 26/10";
+		case "65401":
+			return "V\u00DAB Snina, Stroj\u00E1rska 2524";
+		case "65402":
+			return "V\u00DAB Medzilaborce, Mierova 289/1";
+		case "70000":
+			return "V\u00DAB Ko\u0161ice, Stroj\u00E1rensk\u00E1 11";	//2 addresses again, not good
+		case "70001":
+			return "V\u00DAB Ko\u0161ice, Trieda L. Svobodu, po\u0161ta 22";
+		case "70002":
+			return "V\u00DAB Ko\u0161ice, Hlavn\u00E1 1, Slovan";
+		case "70003":
+			return "V\u00DAB Ko\u0161ice, Bukoveck\u00E1 18 - OC BUKOVEC";	//OC BUKOVEC && Spišské námestie 1 - ???
+		case "70004":
+			return "V\u00DAB Ko\u0161ice, Letn\u00E1 40";	//most of these have more adresses - ???
+		case "70005":
+			return "V\u00DAB Ko\u0161ice, Trieda KVP 1";
+		case "70007":
+			return "V\u00DAB Ko\u0161ice, Moldavsk\u00E1 cesta 32 - OC OPTIMA";
+		case "70009":
+			return "V\u00DAB Ko\u0161ice, Hlavn\u00E1 41 - Mlynsk\u00E1";
+		case "70010":
+			return "V\u00DAB Ko\u0161ice, Torysk\u00E1 5 - OC Gal\u00E9ria";
+		case "70050":
+			return hs;
+		case "70100":
+			return "V\u00DAB Ko\u0161ice, Ba\u010D\u00EDkova 2";
+		case "70101":
+			return "V\u00DAB Moldava nad Bodvou, Hviezdoslavova 13";
+		case "70103":
+			return "V\u00DAB Ko\u0161ice - \u0164ahanovce, Americk\u00E1 trieda 15";
+		case "70200":
+			return "V\u00DAB Michalovce, N\u00E1mestie slobody 3";
+		case "70201":
+			return "V\u00DAB Michalovce, N\u00E1mestie oslobodite\u013Eov 18";
+		case "70203":
+			return "V\u00DAB Str\u00E1\u017Eske, N\u00E1mestie A. Dub\u010Deka 300";
+		case "70204":
+			return "V\u00DAB Sobrance, \u0160tef\u00E1nikova 9";
+		case "70300":
+			return "V\u00DAB Trebi\u0161ov, Milana Rastislava \u0160tef\u00E1nika 32";
+		case "70301":
+			return "V\u00DAB Kr\u00E1\u013Eovsk\u00FD Chlmec, Hlavn\u00E1 172";
+		case "70302":
+			return "V\u00DAB Ve\u013Ek\u00E9 Kapu\u0161any, P. O. Hviezdoslava 79";
+		case "70303":
+			return "V\u00DAB Se\u010Dovce, Obchodn\u00E1 17";
+		case "90007":
+			return hs;
+		case "90008":
+			return hs;
+		case "90009":
+			return hs;
 		default:
 			return hs;
 
