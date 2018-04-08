@@ -44,16 +44,14 @@ public class FilterExcelTable{
 		
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
-		
-		Workbook kmen2 = Workbook.getWorkbook(kmenFile2);
-		Sheet tabulka2 = kmen2.getSheet(0);
+		Sheet tabulka2 = kmen.getSheet(1);
 		
 		for(int i = 0; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
 			
-			if(riadok[20].getContents().equals("Šašala")){
-				if(!strediskaSet.contains(riadok[7].getContents())){
-					strediskaSet.add(riadok[7].getContents());
+			if(riadok[5].getContents().equals("Šašala")){
+				if(!strediskaSet.contains(riadok[3].getContents())){
+					strediskaSet.add(riadok[3].getContents());
 					totalParts++;
 				}
 				
@@ -64,9 +62,9 @@ public class FilterExcelTable{
 		for(int i = 0; i < tabulka2.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
 			
-			if(riadok[0].getContents().equals("Šašala")){
-				if(!strediskaSet.contains(riadok[1].getContents())){		//TODO: Change numbers 0 and 1
-					strediskaSet.add(riadok[1].getContents());
+			if(riadok[5].getContents().equals("Šašala")){
+				if(!strediskaSet.contains(riadok[3].getContents())){
+					strediskaSet.add(riadok[3].getContents());
 					totalParts++;
 				}
 				
@@ -221,9 +219,9 @@ public class FilterExcelTable{
 				for(int j = 0; j < tabulka.getRows(); j++){
 					Cell[] riadok = tabulka.getRow(j);
 					
-					if(riadok[7].getContents().equals(hs)){
-						if(riadok[25].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[1].getContents(), riadok[2].getContents(), riadok[3].getContents(), riadok[10].getContents()));
+					if(riadok[3].getContents().equals(hs)){
+						if(riadok[6].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents()));
 							
 						}
 						
@@ -234,9 +232,9 @@ public class FilterExcelTable{
 				for(int j = 0; j < tabulka2.getRows(); j++){
 					Cell[] riadok = tabulka2.getRow(j);
 					
-					if(riadok[0].getContents().equals(hs)){
-						if(riadok[00].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[1].getContents(), riadok[2].getContents(), riadok[3].getContents(), riadok[10].getContents()));
+					if(riadok[3].getContents().equals(hs)){
+						if(riadok[6].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents()));
 							
 						}
 						
