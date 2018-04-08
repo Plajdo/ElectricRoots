@@ -28,6 +28,9 @@ public class TableGUI {
 	private JButton btnSpracova;
 	
 	private static TableGUI instance;
+	private JLabel lblObrzok;
+	private JTextField textField_2;
+	private JButton btnSrlecc;
 	
 	public static TableGUI getInstance(){
 		return instance;
@@ -64,7 +67,7 @@ public class TableGUI {
 		frmExcelStuff.setTitle("Excel stuff");
 		frmExcelStuff.setBounds(100, 100, 450, 214);
 		frmExcelStuff.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][grow][][grow][]"));
+		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][grow][][grow][]"));
 		
 		JLabel lblKmexls = new JLabel("Kme\u0148.xls:");
 		frmExcelStuff.getContentPane().add(lblKmexls, "cell 0 0,alignx trailing");
@@ -93,11 +96,38 @@ public class TableGUI {
 		});
 		frmExcelStuff.getContentPane().add(btnChoosepath, "cell 2 0,growx");
 		
+		lblObrzok = new JLabel("Obr\u00E1zok:");
+		frmExcelStuff.getContentPane().add(lblObrzok, "cell 0 1,alignx trailing");
+		
+		textField_2 = new JTextField();
+		frmExcelStuff.getContentPane().add(textField_2, "cell 1 1,growx");
+		textField_2.setColumns(10);
+		
+		btnSrlecc = new JButton("Vybra\u0165 s\u00FAbor");
+		btnSrlecc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setAcceptAllFileFilterUsed(false);
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Portable Network Graphics", "png");
+				chooser.setFileFilter(filter);
+				
+				int returnVal = chooser.showOpenDialog(frmExcelStuff);
+				
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					textField_2.setText(chooser.getSelectedFile().getPath());
+				}
+				
+			}
+			
+		});
+		frmExcelStuff.getContentPane().add(btnSrlecc, "cell 2 1,growx");
+		
 		lblOutputlabel = new JLabel("V\u00FDstupn\u00FD prie\u010Dinok:");
-		frmExcelStuff.getContentPane().add(lblOutputlabel, "cell 0 1,alignx trailing");
+		frmExcelStuff.getContentPane().add(lblOutputlabel, "cell 0 2,alignx trailing");
 		
 		textField_1 = new JTextField();
-		frmExcelStuff.getContentPane().add(textField_1, "flowx,cell 1 1,growx");
+		frmExcelStuff.getContentPane().add(textField_1, "flowx,cell 1 2,growx");
 		textField_1.setColumns(10);
 		
 		btnNewButton = new JButton("Vybra\u0165 prie\u010Dinok");
@@ -114,24 +144,25 @@ public class TableGUI {
 			}
 			
 		});
-		frmExcelStuff.getContentPane().add(btnNewButton, "cell 2 1,growx");
+		frmExcelStuff.getContentPane().add(btnNewButton, "cell 2 2,growx");
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
-		frmExcelStuff.getContentPane().add(progressBar, "cell 0 3 3 1,growx");
+		frmExcelStuff.getContentPane().add(progressBar, "cell 0 4 3 1,growx");
 		
 		btnSpracova = new JButton("Spracova\u0165");
 		btnSpracova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Runnable r = () -> {
 					try{
-						FilterExcelTable.create(new File(textField.getText()), textField_1.getText());	
+						FilterExcelTable.create(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText());	
 						JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
 					}catch(Exception e1){
 						JOptionPane.showMessageDialog(frmExcelStuff, "Chyba pri spracovan\u00ED tabu\u013Eky! Popis chyby:\n" + e1.toString(), "Chyba", JOptionPane.ERROR_MESSAGE);
 					}finally{
 						textField.setText("");
 						textField_1.setText("");
+						textField_2.setText("");
 						progressBar.setIndeterminate(false);
 						progressBar.setValue(0);
 					}
@@ -143,7 +174,7 @@ public class TableGUI {
 			}
 
 		});
-		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 5");
+		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 6");
 		
 	}
 	

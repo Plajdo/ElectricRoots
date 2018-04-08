@@ -1,9 +1,13 @@
 package io.github.plajdo.excel;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeSet;
+
+import javax.imageio.ImageIO;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -16,6 +20,7 @@ import jxl.write.Border;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
+import jxl.write.WritableImage;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -29,7 +34,10 @@ public class FilterExcelTable{
 	static int doneParts = 0;
 	static TableGUI gui = TableGUI.getInstance();
 	
-	public static void create(File kmenFile, String outputDir) throws Exception{		
+	private static final double CELL_DEFAULT_HEIGHT = 17;
+	private static final double CELL_DEFAULT_WIDTH = 64;
+	
+	public static void create(File kmenFile, File image, String outputDir) throws Exception{		
 		gui.setProgress(-1);
 		
 		/*
@@ -46,6 +54,12 @@ public class FilterExcelTable{
 		Sheet tabulka = kmen.getSheet(0);
 		Sheet tabulka2 = kmen.getSheet(1);
 		Sheet adresy = kmen.getSheet(2);
+		
+		BufferedImage input = ImageIO.read(image);
+		double height = input.getHeight();
+		double width = input.getWidth();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(input, "PNG", baos);
 
 		for(int i = 1; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
@@ -209,6 +223,11 @@ public class FilterExcelTable{
 				doneParts++;
 				setBar(getPercent(doneParts, totalParts));
 				
+				/*
+				 * Add a picture
+				 */
+				sheet.addImage(new WritableImage(13.0d, 0.5d, width / CELL_DEFAULT_WIDTH, height / CELL_DEFAULT_HEIGHT, baos.toByteArray()));
+				
 				ArrayList<Polozka> polozkaList = new ArrayList<Polozka>();
 				
 				for(int j = 1; j < tabulka.getRows(); j++){
@@ -239,19 +258,19 @@ public class FilterExcelTable{
 				
 				/*
 				 * 10 empty lines
-				 */
+				 *//*
 				for(int k = 0; k < 10; k++){
 					polozkaList.add(new Polozka("", "", "", ""));
 				}
-				
+				*/
 				polozkaList.forEach((polozka) -> {
 					Label porc = new Label(0, counter2, String.valueOf(counterPorc), porcFormat);
 					Label invc = new Label(1, counter2, polozka.invc, otherArrayFormat);
 					Label meno = new Label(2, counter2, polozka.nazov, otherArrayFormat);
 					Label vyrc = new Label(3, counter2, polozka.vyrc, otherArrayFormat);
 					Label emp1 = new Label(4, counter2, polozka.miesto, otherArrayFormat);
-					Label emp2 = new Label(5, counter2, "", otherArrayFormat);
-					Label emp3 = new Label(6, counter2, "", otherArrayFormat);
+					Label emp2 = new Label(5, counter2, "Vyhovuje", otherArrayFormat);
+					Label emp3 = new Label(6, counter2, "230 V", otherArrayFormat);
 					Label emp4 = new Label(7, counter2, "", otherArrayFormat);
 					Label emp5 = new Label(8, counter2, "", otherArrayFormat);
 					Label emp6 = new Label(9, counter2, "", otherArrayFormat);
@@ -260,7 +279,7 @@ public class FilterExcelTable{
 					Label emp9 = new Label(12, counter2, "", otherArrayFormat);
 					Label emp10 = new Label(13, counter2, "", otherArrayFormat);
 					Label emp11 = new Label(14, counter2, "", otherArrayFormat);
-					Label emp12 = new Label(15, counter2, "", otherArrayFormat);
+					Label emp12 = new Label(15, counter2, "Vyhovuje", otherArrayFormat);
 					
 					try{
 						sheet.addCell(porc);
