@@ -29,7 +29,7 @@ public class FilterExcelTable{
 	static int doneParts = 0;
 	static TableGUI gui = TableGUI.getInstance();
 	
-	public static void create(File kmenFile, File kmenFile2, String outputDir) throws Exception{		
+	public static void create(File kmenFile, String outputDir) throws Exception{		
 		gui.setProgress(-1);
 		
 		/*
@@ -45,31 +45,25 @@ public class FilterExcelTable{
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
 		Sheet tabulka2 = kmen.getSheet(1);
-		
-		for(int i = 0; i < tabulka.getRows(); i++){
+
+		for(int i = 1; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
-			
-			if(riadok[5].getContents().equals("Šašala")){
-				if(!strediskaSet.contains(riadok[3].getContents())){
-					strediskaSet.add(riadok[3].getContents());
-					totalParts++;
-				}
-				
+
+			if(!strediskaSet.contains(riadok[3].getContents())){
+				strediskaSet.add(riadok[3].getContents());
+				totalParts++;
 			}
-			
+
 		}
-		
-		for(int i = 0; i < tabulka2.getRows(); i++){
+
+		for(int i = 1; i < tabulka2.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
-			
-			if(riadok[5].getContents().equals("Šašala")){
-				if(!strediskaSet.contains(riadok[3].getContents())){
-					strediskaSet.add(riadok[3].getContents());
-					totalParts++;
-				}
-				
+
+			if(!strediskaSet.contains(riadok[3].getContents())){
+				strediskaSet.add(riadok[3].getContents());
+				totalParts++;
 			}
-			
+
 		}
 		
 		totalParts *= 2;
