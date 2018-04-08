@@ -45,6 +45,7 @@ public class FilterExcelTable{
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
 		Sheet tabulka2 = kmen.getSheet(1);
+		Sheet adresy = kmen.getSheet(2);
 
 		for(int i = 1; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
@@ -57,7 +58,7 @@ public class FilterExcelTable{
 		}
 
 		for(int i = 1; i < tabulka2.getRows(); i++){
-			Cell[] riadok = tabulka.getRow(i);
+			Cell[] riadok = tabulka2.getRow(i);
 
 			if(!strediskaSet.contains(riadok[3].getContents())){
 				strediskaSet.add(riadok[3].getContents());
@@ -131,7 +132,7 @@ public class FilterExcelTable{
 				sheet.mergeCells(10, 7, 11, 7);
 				sheet.mergeCells(12, 7, 14, 7);
 				
-				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs), thinFormat);
+				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs, adresy), thinFormat);
 				Label entry02 = new Label(0, 2, "Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
@@ -210,12 +211,12 @@ public class FilterExcelTable{
 				
 				ArrayList<Polozka> polozkaList = new ArrayList<Polozka>();
 				
-				for(int j = 0; j < tabulka.getRows(); j++){
+				for(int j = 1; j < tabulka.getRows(); j++){
 					Cell[] riadok = tabulka.getRow(j);
 					
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[6].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents()));
+						if(riadok[7].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
 							
 						}
 						
@@ -223,12 +224,12 @@ public class FilterExcelTable{
 					
 				}
 				
-				for(int j = 0; j < tabulka2.getRows(); j++){
+				for(int j = 1; j < tabulka2.getRows(); j++){
 					Cell[] riadok = tabulka2.getRow(j);
 					
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[6].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents()));
+						if(riadok[7].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
 							
 						}
 						
@@ -319,121 +320,19 @@ public class FilterExcelTable{
 		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
 	}
 	
-	private static String getAddress(String hs){
-		/*
-		 * Do something like load from database, but nothing useful is available right now, so... manual switch i guess
-		 */
-		switch(hs.substring(0, 5)){
-		case "60000":
-			return "V\u00DAB Poprad, Mnohe\u013Eova 2832/9";
-		case "60001":
-			return hs;
-		case "60003":
-			return hs;
-		case "60006":
-			return "V\u00DAB Spi\u0161sk\u00E1 Bel\u00E1, N\u00E1mestie SNP 2522";
-		case "60007":
-			return "V\u00DAB Poprad, N\u00E1m. sv. Eg\u00EDdia 3290/124 - OC FORUM";
-		case "60009":
-			return "V\u00DAB Poprad, Dlhé Hony 4588/1 - ZOC MAX";
-		case "60100":
-			return "V\u00DAB Ro\u017E\u0148ava, \u0160af\u00E1rikova 21";
-		case "60200":
-			return hs;
-		case "60201":
-			return "V\u00DAB Levo\u010Da, N\u00E1mestie Majstra Pavla 38";
-		case "60202":
-			return hs;
-		case "60203":
-			return hs;
-		case "60204":
-			return hs;
-		case "60400":
-			return hs;	//More addresses for one place?
-		case "60401":
-			return "V\u00DAB Podol\u00EDnec, Sv\u00E4tej Anny 1";
-		case "65000":
-			return "V\u00DAB Pre\u0161ov, Masarykova 13";
-		case "65001":
-			return "V\u00DAB Sabinov, N\u00E1mestie slobody 623";
-		case "65003":
-			return "V\u00DAB Lipany, N\u00E1m. Sv. Martina 8";
-		case "65004":
-			return "V\u00DAB Pre\u0161ov, Hlavn\u00E1 61";
-		case "65005":
-			return "V\u00DAB Pre\u0161ov, Vihorlatsk\u00E1 2/A - ZOC MAX";
-		case "65050":
-			return hs;
-		case "65100":
-			return "V\u00DAB Svidn\u00EDk, Centr\u00E1lna 584/5";
-		case "65101":
-			return "V\u00DAB Stropkov, Mlynsk\u00E1 692/1";
-		case "65200":
-			return "V\u00DAB Vranov nad Top\u013Eou, N\u00E1mestie slobody 6";
-		case "65202":
-			return "V\u00DAB Hanu\u0161ovce nad Top\u013Eou, Komensk\u00E9ho 52";
-		case "65300":
-			return "V\u00DAB Bardejov, Kellerova 1";
-		case "65302":
-			return "V\u00DAB Giraltovce, Dukelsk\u00E1 58";
-		case "65400":
-			return "V\u00DAB Humenn\u00E9, N\u00E1mestie slobody 26/10";
-		case "65401":
-			return "V\u00DAB Snina, Stroj\u00E1rska 2524";
-		case "65402":
-			return "V\u00DAB Medzilaborce, Mierova 289/1";
-		case "70000":
-			return "V\u00DAB Ko\u0161ice, Stroj\u00E1renska 11";	//2 addresses again, not good
-		case "70001":
-			return "V\u00DAB Ko\u0161ice, Trieda L. Svobodu, po\u0161ta 22";
-		case "70002":
-			return "V\u00DAB Ko\u0161ice, Hlavn\u00E1 1, Slovan";
-		case "70003":
-			return "V\u00DAB Ko\u0161ice, Bukoveck\u00E1 18 - OC BUKOVEC";	//OC BUKOVEC && Spišské námestie 1 - ???
-		case "70004":
-			return "V\u00DAB Ko\u0161ice, Letn\u00E1 40";	//most of these have more adresses - ???
-		case "70005":
-			return "V\u00DAB Ko\u0161ice, Trieda KVP 1";
-		case "70007":
-			return "V\u00DAB Ko\u0161ice, Moldavsk\u00E1 cesta 32 - OC OPTIMA";
-		case "70009":
-			return "V\u00DAB Ko\u0161ice, Hlavn\u00E1 41 - Mlynsk\u00E1";
-		case "70010":
-			return "V\u00DAB Ko\u0161ice, Torysk\u00E1 5 - OC Gal\u00E9ria";
-		case "70050":
-			return hs;
-		case "70100":
-			return "V\u00DAB Ko\u0161ice, Ba\u010D\u00EDkova 2";
-		case "70101":
-			return "V\u00DAB Moldava nad Bodvou, Hviezdoslavova 13";
-		case "70103":
-			return "V\u00DAB Ko\u0161ice - \u0164ahanovce, Americk\u00E1 trieda 15";
-		case "70200":
-			return "V\u00DAB Michalovce, N\u00E1mestie slobody 3";
-		case "70201":
-			return "V\u00DAB Michalovce, N\u00E1mestie oslobodite\u013Eov 18";
-		case "70203":
-			return "V\u00DAB Str\u00E1\u017Eske, N\u00E1mestie A. Dub\u010Deka 300";
-		case "70204":
-			return "V\u00DAB Sobrance, \u0160tef\u00E1nikova 9";
-		case "70300":
-			return "V\u00DAB Trebi\u0161ov, Milana Rastislava \u0160tef\u00E1nika 32";
-		case "70301":
-			return "V\u00DAB Kr\u00E1\u013Eovsk\u00FD Chlmec, Hlavn\u00E1 172";
-		case "70302":
-			return "V\u00DAB Ve\u013Ek\u00E9 Kapu\u0161any, P. O. Hviezdoslava 79";
-		case "70303":
-			return "V\u00DAB Se\u010Dovce, Obchodn\u00E1 17";
-		case "90007":
-			return hs;
-		case "90008":
-			return hs;
-		case "90009":
-			return hs;
-		default:
-			return hs;
-
+	private static String getAddress(String hs, Sheet adresy){
+		Cell[] columns = adresy.getColumn(0);
+		
+		for(int i = 1; i < columns.length; i++){	
+			Cell hs_cell = columns[i];
+			if(hs.startsWith(hs_cell.getContents())){
+				return adresy.getColumn(1)[i].getContents();
+			}else{
+				continue;
+			}
+			
 		}
+		return hs;
 		
 	}
 	
