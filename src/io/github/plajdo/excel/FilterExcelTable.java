@@ -27,21 +27,21 @@ import jxl.write.WriteException;
 
 @SuppressWarnings("deprecation")
 public class FilterExcelTable{
-	
+
 	static int counter2 = 9;
 	static int counterPorc = 1;
 	static int totalParts = 0;
 	static int doneParts = 0;
 	static TableGUI gui = TableGUI.getInstance();
-	
+
 	private static final double CELL_DEFAULT_HEIGHT = 17;
 	private static final double CELL_DEFAULT_WIDTH = 64;
-	
+
 	private static boolean protokol_o_kontrole;
-	
+
 	public static void create(File kmenFile, File image, String outputDir, boolean protokol) throws Exception{
 		gui.setProgress(-1);
-		
+
 		/*
 		 * Reset just to be sure
 		 */
@@ -49,16 +49,16 @@ public class FilterExcelTable{
 		counterPorc = 1;
 		totalParts = 0;
 		doneParts = 0;
-		
+
 		protokol_o_kontrole = protokol;
-		
-		TreeSet<String> strediskaSet = new TreeSet<String>(); 
-		
+
+		TreeSet<String> strediskaSet = new TreeSet<String>();
+
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
 		Sheet tabulka2 = kmen.getSheet(1);
 		Sheet adresy = kmen.getSheet(2);
-		
+
 		BufferedImage input = ImageIO.read(image);
 		double height = input.getHeight();
 		double width = input.getWidth();
@@ -84,55 +84,55 @@ public class FilterExcelTable{
 			}
 
 		}
-		
+
 		totalParts *= 2;
-		
+
 		ArrayList<String> strediskaList = new ArrayList<String>(strediskaSet);
 		strediskaList.forEach((hs) -> {
 			try{
 				WritableWorkbook output = Workbook.createWorkbook(new File(outputDir + "output_" + hs + ".xls"));
 				WritableSheet sheet = output.createSheet("Sheet", 0);
-				
+
 				Alignment align_left = Alignment.LEFT;
 				VerticalAlignment align_top = VerticalAlignment.TOP;
 				Alignment align_centre = Alignment.CENTRE;
 				VerticalAlignment align_centre_v = VerticalAlignment.CENTRE;
-				
+
 				WritableCellFormat thiccFormat = new WritableCellFormat();
 				thiccFormat.setFont(new WritableFont(WritableFont.createFont("Calibri"), 11, WritableFont.BOLD));
 				thiccFormat.setWrap(true);
 				thiccFormat.setAlignment(align_left);
 				thiccFormat.setVerticalAlignment(align_top);
-				
+
 				WritableCellFormat thinFormat = new WritableCellFormat();
 				thinFormat.setFont(new WritableFont(WritableFont.createFont("Calibri"), 11, WritableFont.NO_BOLD));
-				
+
 				WritableCellFormat arrayFormat = new WritableCellFormat();
 				arrayFormat.setFont(new WritableFont(WritableFont.createFont("Calibri"), 11, WritableFont.NO_BOLD));
 				arrayFormat.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BLACK);
 				arrayFormat.setWrap(true);
 				arrayFormat.setAlignment(align_left);
 				arrayFormat.setVerticalAlignment(align_top);
-				
+
 				WritableCellFormat porcFormat = new WritableCellFormat();
 				porcFormat.setFont(new WritableFont(WritableFont.createFont("Calibri"), 11, WritableFont.NO_BOLD));
 				porcFormat.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BLACK);
 				porcFormat.setWrap(true);
 				porcFormat.setAlignment(align_centre);
 				porcFormat.setVerticalAlignment(align_centre_v);
-				
+
 				WritableCellFormat otherArrayFormat = new WritableCellFormat();
 				otherArrayFormat.setFont(new WritableFont(WritableFont.createFont("Calibri"), 11, WritableFont.NO_BOLD));
 				otherArrayFormat.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BLACK);
 				otherArrayFormat.setWrap(true);
 				otherArrayFormat.setAlignment(align_left);
 				otherArrayFormat.setVerticalAlignment(align_centre_v);
-				
+
 				sheet.setColumnView(0, 5);
 				sheet.setColumnView(1, 10);
 				sheet.setColumnView(2, 50);
 				sheet.setColumnView(3, 20);
-				sheet.setColumnView(4, 20);
+				sheet.setColumnView(4, 35);	//This row - location
 				sheet.setColumnView(5, 10);
 				sheet.setColumnView(6, 10);
 				sheet.setColumnView(7, 10);
@@ -144,14 +144,14 @@ public class FilterExcelTable{
 				sheet.setColumnView(13, 10);
 				sheet.setColumnView(14, 10);
 				sheet.setColumnView(15, 10);
-				
+
 				sheet.mergeCells(0, 2, 10, 3);
 				sheet.mergeCells(7, 7, 9, 7);
 				sheet.mergeCells(10, 7, 11, 7);
 				sheet.mergeCells(12, 7, 14, 7);
-				
+
 				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs, adresy), thinFormat);
-				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." : 
+				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
 																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
 				Label entry3a = new Label(3, 5, "Vykonal: " + getName(hs, adresy));
@@ -165,12 +165,12 @@ public class FilterExcelTable{
 				sheet.addCell(entry04);
 				sheet.addCell(entry05);
 				sheet.addCell(entry06);
-				
+
 				Label entry07 = new Label(0, 6, "Prevádzkovateľ: Všeobecná úverová banka a.s., Bratislava, IČO: 313 20 155", thinFormat);
 				Label entry08 = new Label(8, 6, "Správca: BK, a.s. Dopravná 19, Piešťany", thinFormat);
 				sheet.addCell(entry07);
 				sheet.addCell(entry08);
-				
+
 				Label entry09 = new Label(0, 7, "Por. číslo", arrayFormat);
 				Label entry10 = new Label(1, 7, "Inv. číslo", arrayFormat);
 				Label entry11 = new Label(2, 7, "Špecifikácia - Názov, typ", arrayFormat);
@@ -193,7 +193,7 @@ public class FilterExcelTable{
 				sheet.addCell(entry17);
 				sheet.addCell(entry18);
 				sheet.addCell(entry19);
-				
+
 				Label entry20 = new Label(0, 8, "", arrayFormat);
 				Label entry21 = new Label(1, 8, "", arrayFormat);
 				Label entry22 = new Label(2, 8, "", arrayFormat);
@@ -226,43 +226,43 @@ public class FilterExcelTable{
 				sheet.addCell(entry33);
 				sheet.addCell(entry34);
 				sheet.addCell(entry35);
-				
+
 				doneParts++;
 				setBar(getPercent(doneParts, totalParts));
-				
+
 				/*
 				 * Add a picture
 				 */
 				sheet.addImage(new WritableImage(13.0d, 0.5d, width / CELL_DEFAULT_WIDTH, height / CELL_DEFAULT_HEIGHT, baos.toByteArray()));
-				
+
 				ArrayList<Polozka> polozkaList = new ArrayList<Polozka>();
-				
+
 				for(int j = 1; j < tabulka.getRows(); j++){
 					Cell[] riadok = tabulka.getRow(j);
-					
+
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E1")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
-							
+						if(riadok[7].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+
 						}
-						
+
 					}
-					
+
 				}
-				
+
 				for(int j = 1; j < tabulka2.getRows(); j++){
 					Cell[] riadok = tabulka2.getRow(j);
-					
+
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E1")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
-							
+						if(riadok[7].getContents().equals("E")){
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+
 						}
-						
+
 					}
-					
+
 				}
-				
+
 				/*
 				 * 10 empty lines
 				 *//*
@@ -287,7 +287,7 @@ public class FilterExcelTable{
 					Label emp10 = new Label(13, counter2, "", otherArrayFormat);
 					Label emp11 = new Label(14, counter2, "", otherArrayFormat);
 					Label emp12 = new Label(15, counter2, "Vyhovuje", otherArrayFormat);
-					
+
 					try{
 						sheet.addCell(porc);
 						sheet.addCell(invc);
@@ -308,63 +308,63 @@ public class FilterExcelTable{
 					}catch(WriteException e){
 						e.printStackTrace();
 					}
-					
+
 					counter2++;
 					counterPorc++;
-					
+
 				});
-				
+
 				for(int l = 0; l < counter2; l++){
 					if(l == 7 || l == 8){
 						continue;
 					}
 					sheet.setRowView(l, 15 * 20);
 				}
-				
+
 				counter2 = 9;
 				counterPorc = 1;
 				doneParts++;
 				setBar(getPercent(doneParts, totalParts));
-				
+
 				output.write();
 				output.close();
-				
+
 			}catch(IOException | WriteException e){
 				e.printStackTrace();
 			}
 		});
-		
+
 		kmen.close();
-		
+
 	}
-	
+
 	private static double getPercent(double stuff, double outof){
 		return stuff / outof * 100;
 	}
-	
+
 	private static void setBar(double percent){
 		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
 	}
-	
+
 	private static String getAddress(String hs, Sheet adresy){
 		Cell[] columns = adresy.getColumn(0);
-		
-		for(int i = 1; i < columns.length; i++){	
+
+		for(int i = 1; i < columns.length; i++){
 			Cell hs_cell = columns[i];
 			if(hs.startsWith(hs_cell.getContents())){
 				return adresy.getColumn(1)[i].getContents();
 			}else{
 				continue;
 			}
-			
+
 		}
 		return hs;
-		
+
 	}
-	
+
 	private static String getName(String hs, Sheet mena){
 		Cell[] columns = mena.getColumn(0);
-		
+
 		for(int i = 1; i < columns.length; i++){
 			Cell meno_cell = columns[i];
 			if(hs.startsWith(meno_cell.getContents())){
@@ -372,24 +372,24 @@ public class FilterExcelTable{
 			}else{
 				continue;
 			}
-			
+
 		}
 		return "";
-		
+
 	}
-	
+
 }
 
 class Polozka{
-	
+
 	public String invc, nazov, vyrc, miesto;
 	public int id;
-	
+
 	public Polozka(String invc, String nazov, String vyrc, String miesto){
 		this.invc = invc;
 		this.nazov = nazov;
 		this.vyrc = vyrc;
 		this.miesto = miesto;
 	}
-	
+
 }
