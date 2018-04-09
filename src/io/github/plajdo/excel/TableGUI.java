@@ -167,6 +167,7 @@ public class TableGUI {
 						FilterExcelTable.create(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
 						JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
 					}catch(Exception e1){
+						e1.printStackTrace();
 						JOptionPane.showMessageDialog(frmExcelStuff, "Chyba pri spracovan\u00ED tabu\u013Eky! Popis chyby:\n" + e1.toString(), "Chyba", JOptionPane.ERROR_MESSAGE);
 					}finally{
 						textField.setText("");

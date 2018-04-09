@@ -154,7 +154,7 @@ public class FilterExcelTable{
 				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
 																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
-				Label entry3a = new Label(3, 5, "Vykonal: " + getName(hs, adresy));
+				Label entry3a = new Label(3, 5, "Vykonal: " + getName(hs, adresy), thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
 				Label entry06 = new Label(12, 5, "Kalibračný list č.", thinFormat);
@@ -349,7 +349,7 @@ public class FilterExcelTable{
 	private static String getAddress(String hs, Sheet adresy){
 		Cell[] columns = adresy.getColumn(0);
 
-		for(int i = 1; i < columns.length; i++){
+		for(int i = 1; i < columns.length - 1; i++){
 			Cell hs_cell = columns[i];
 			if(hs.startsWith(hs_cell.getContents())){
 				return adresy.getColumn(1)[i].getContents();
@@ -364,10 +364,10 @@ public class FilterExcelTable{
 
 	private static String getName(String hs, Sheet mena){
 		Cell[] columns = mena.getColumn(0);
-
-		for(int i = 1; i < columns.length; i++){
-			Cell meno_cell = columns[i];
-			if(hs.startsWith(meno_cell.getContents())){
+		
+		for(int i = 1; i < columns.length - 1; i++){
+			Cell cell = columns[i];
+			if(hs.startsWith(cell.getContents())){
 				return mena.getColumn(2)[i].getContents();
 			}else{
 				continue;
