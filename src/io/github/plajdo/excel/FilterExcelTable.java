@@ -241,7 +241,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka.getRow(j);
 
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E")){
+						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
@@ -254,7 +254,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka2.getRow(j);
 
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E")){
+						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
