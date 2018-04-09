@@ -154,7 +154,8 @@ public class FilterExcelTable{
 				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
 																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
-				Label entry3a = new Label(3, 5, "Vykonal: " + getName(hs, adresy), thinFormat);
+				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? 	getName(hs, adresy) :
+																						""), thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
 				Label entry06 = new Label(12, 5, "Kalibračný list č.", thinFormat);
