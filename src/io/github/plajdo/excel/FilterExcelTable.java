@@ -128,7 +128,7 @@ public class FilterExcelTable{
 				sheet.setColumnView(1, 10);
 				sheet.setColumnView(2, 50);
 				sheet.setColumnView(3, 20);
-				sheet.setColumnView(4, 20);
+				sheet.setColumnView(4, 35);	//This row - location
 				sheet.setColumnView(5, 10);
 				sheet.setColumnView(6, 10);
 				sheet.setColumnView(7, 10);
@@ -235,7 +235,7 @@ public class FilterExcelTable{
 					
 					if(riadok[3].getContents().equals(hs)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 							
 						}
 						
@@ -248,7 +248,7 @@ public class FilterExcelTable{
 					
 					if(riadok[3].getContents().equals(hs)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 							
 						}
 						
