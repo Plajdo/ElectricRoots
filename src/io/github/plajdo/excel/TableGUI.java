@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +32,8 @@ public class TableGUI {
 	private JLabel lblObrzok;
 	private JTextField textField_2;
 	private JButton btnSrlecc;
+	private JLabel lblProtokolOKontrole;
+	private JCheckBox chckbxucnonie;
 	
 	public static TableGUI getInstance(){
 		return instance;
@@ -65,9 +68,9 @@ public class TableGUI {
 	private void initialize() {
 		frmExcelStuff = new JFrame();
 		frmExcelStuff.setTitle("Excel stuff");
-		frmExcelStuff.setBounds(100, 100, 450, 214);
+		frmExcelStuff.setBounds(100, 100, 450, 250);
 		frmExcelStuff.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][grow][][grow][]"));
+		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][][grow][][grow][]"));
 		
 		JLabel lblKmexls = new JLabel("Kme\u0148.xls:");
 		frmExcelStuff.getContentPane().add(lblKmexls, "cell 0 0,alignx trailing");
@@ -146,16 +149,22 @@ public class TableGUI {
 		});
 		frmExcelStuff.getContentPane().add(btnNewButton, "cell 2 2,growx");
 		
+		lblProtokolOKontrole = new JLabel("Protokol o kontrole:");
+		frmExcelStuff.getContentPane().add(lblProtokolOKontrole, "cell 0 3");
+		
+		chckbxucnonie = new JCheckBox("\u00C1no/Nie");
+		frmExcelStuff.getContentPane().add(chckbxucnonie, "cell 1 3");
+		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
-		frmExcelStuff.getContentPane().add(progressBar, "cell 0 4 3 1,growx");
+		frmExcelStuff.getContentPane().add(progressBar, "cell 0 5 3 1,growx");
 		
 		btnSpracova = new JButton("Spracova\u0165");
 		btnSpracova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Runnable r = () -> {
 					try{
-						FilterExcelTable.create(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText());	
+						FilterExcelTable.create(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
 						JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
 					}catch(Exception e1){
 						JOptionPane.showMessageDialog(frmExcelStuff, "Chyba pri spracovan\u00ED tabu\u013Eky! Popis chyby:\n" + e1.toString(), "Chyba", JOptionPane.ERROR_MESSAGE);
@@ -174,7 +183,7 @@ public class TableGUI {
 			}
 
 		});
-		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 6");
+		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 7");
 		
 	}
 	

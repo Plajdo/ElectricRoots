@@ -37,7 +37,9 @@ public class FilterExcelTable{
 	private static final double CELL_DEFAULT_HEIGHT = 17;
 	private static final double CELL_DEFAULT_WIDTH = 64;
 	
-	public static void create(File kmenFile, File image, String outputDir) throws Exception{		
+	private static boolean protokol_o_kontrole;
+	
+	public static void create(File kmenFile, File image, String outputDir, boolean protokol) throws Exception{
 		gui.setProgress(-1);
 		
 		/*
@@ -47,6 +49,8 @@ public class FilterExcelTable{
 		counterPorc = 1;
 		totalParts = 0;
 		doneParts = 0;
+		
+		protokol_o_kontrole = protokol;
 		
 		TreeSet<String> strediskaSet = new TreeSet<String>(); 
 		
@@ -147,14 +151,17 @@ public class FilterExcelTable{
 				sheet.mergeCells(12, 7, 14, 7);
 				
 				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs, adresy), thinFormat);
-				Label entry02 = new Label(0, 2, "Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
+				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." : 
+																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
+				Label entry3a = new Label(3, 5, "Vykonal: " + getName(hs, adresy));
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
 				Label entry06 = new Label(12, 5, "Kalibračný list č.", thinFormat);
 				sheet.addCell(entry01);
 				sheet.addCell(entry02);
 				sheet.addCell(entry03);
+				sheet.addCell(entry3a);
 				sheet.addCell(entry04);
 				sheet.addCell(entry05);
 				sheet.addCell(entry06);
@@ -234,7 +241,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka.getRow(j);
 					
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E")){
+						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
 							
 						}
@@ -247,7 +254,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka2.getRow(j);
 					
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E")){
+						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[5].getContents()));
 							
 						}
@@ -273,7 +280,7 @@ public class FilterExcelTable{
 					Label emp3 = new Label(6, counter2, "230 V", otherArrayFormat);
 					Label emp4 = new Label(7, counter2, "", otherArrayFormat);
 					Label emp5 = new Label(8, counter2, "", otherArrayFormat);
-					Label emp6 = new Label(9, counter2, "", otherArrayFormat);
+					Label emp6 = new Label(9, counter2, "I.", otherArrayFormat);
 					Label emp7 = new Label(10, counter2, "", otherArrayFormat);
 					Label emp8 = new Label(11, counter2, "", otherArrayFormat);
 					Label emp9 = new Label(12, counter2, "", otherArrayFormat);
@@ -352,6 +359,22 @@ public class FilterExcelTable{
 			
 		}
 		return hs;
+		
+	}
+	
+	private static String getName(String hs, Sheet mena){
+		Cell[] columns = mena.getColumn(0);
+		
+		for(int i = 1; i < columns.length; i++){
+			Cell meno_cell = columns[i];
+			if(hs.startsWith(meno_cell.getContents())){
+				return mena.getColumn(2)[i].getContents();
+			}else{
+				continue;
+			}
+			
+		}
+		return "";
 		
 	}
 	
