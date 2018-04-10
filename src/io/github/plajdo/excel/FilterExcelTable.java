@@ -52,7 +52,7 @@ public class FilterExcelTable{
 
 		protokol_o_kontrole = protokol;
 
-		TreeSet<String> strediskaSet = new TreeSet<String>();
+		TreeSet<String> hzmSet = new TreeSet<String>();
 
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
@@ -68,8 +68,8 @@ public class FilterExcelTable{
 		for(int i = 1; i < tabulka.getRows(); i++){
 			Cell[] riadok = tabulka.getRow(i);
 
-			if(!strediskaSet.contains(riadok[3].getContents())){
-				strediskaSet.add(riadok[3].getContents());
+			if(!hzmSet.contains(riadok[4].getContents().substring(0, 5))){
+				hzmSet.add(riadok[4].getContents().substring(0, 5));
 				totalParts++;
 			}
 
@@ -78,8 +78,8 @@ public class FilterExcelTable{
 		for(int i = 1; i < tabulka2.getRows(); i++){
 			Cell[] riadok = tabulka2.getRow(i);
 
-			if(!strediskaSet.contains(riadok[3].getContents())){
-				strediskaSet.add(riadok[3].getContents());
+			if(!hzmSet.contains(riadok[3].getContents().substring(0, 5))){
+				hzmSet.add(riadok[3].getContents().substring(0, 5));
 				totalParts++;
 			}
 
@@ -87,10 +87,10 @@ public class FilterExcelTable{
 
 		totalParts *= 2;
 
-		ArrayList<String> strediskaList = new ArrayList<String>(strediskaSet);
-		strediskaList.forEach((hs) -> {
+		ArrayList<String> strediskaList = new ArrayList<String>(hzmSet);
+		strediskaList.forEach((hzm) -> {
 			try{
-				WritableWorkbook output = Workbook.createWorkbook(new File(outputDir + "output_" + hs + ".xls"));
+				WritableWorkbook output = Workbook.createWorkbook(new File(outputDir + "output_" + hzm + ".xls"));
 				WritableSheet sheet = output.createSheet("Sheet", 0);
 
 				Alignment align_left = Alignment.LEFT;
@@ -150,11 +150,11 @@ public class FilterExcelTable{
 				sheet.mergeCells(10, 7, 11, 7);
 				sheet.mergeCells(12, 7, 14, 7);
 
-				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs, adresy), thinFormat);
+				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hzm, adresy), thinFormat);
 				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
 																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
-				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? 	getName(hs, adresy) :
+				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? 	getName(hzm, adresy) :
 																						""), thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
@@ -241,7 +241,7 @@ public class FilterExcelTable{
 				for(int j = 1; j < tabulka.getRows(); j++){
 					Cell[] riadok = tabulka.getRow(j);
 
-					if(riadok[3].getContents().equals(hs)){
+					if(riadok[3].getContents().substring(0, 5).equals(hzm)){
 						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
@@ -254,7 +254,7 @@ public class FilterExcelTable{
 				for(int j = 1; j < tabulka2.getRows(); j++){
 					Cell[] riadok = tabulka2.getRow(j);
 
-					if(riadok[3].getContents().equals(hs)){
+					if(riadok[3].getContents().substring(0, 5).equals(hzm)){
 						if(riadok[7].getContents().equals("E1")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
@@ -347,28 +347,28 @@ public class FilterExcelTable{
 		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
 	}
 
-	private static String getAddress(String hs, Sheet adresy){
+	private static String getAddress(String hzm, Sheet adresy){
 		Cell[] columns = adresy.getColumn(0);
 
 		for(int i = 1; i < columns.length - 1; i++){
-			Cell hs_cell = columns[i];
-			if(hs.startsWith(hs_cell.getContents())){
+			Cell hzm_cell = columns[i];
+			if(hzm.startsWith(hzm_cell.getContents())){
 				return adresy.getColumn(1)[i].getContents();
 			}else{
 				continue;
 			}
 
 		}
-		return hs;
+		return hzm;
 
 	}
 
-	private static String getName(String hs, Sheet mena){
+	private static String getName(String hzm, Sheet mena){
 		Cell[] columns = mena.getColumn(0);
 		
 		for(int i = 1; i < columns.length - 1; i++){
 			Cell cell = columns[i];
-			if(hs.startsWith(cell.getContents())){
+			if(hzm.startsWith(cell.getContents())){
 				return mena.getColumn(2)[i].getContents();
 			}else{
 				continue;
