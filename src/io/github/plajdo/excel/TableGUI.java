@@ -157,7 +157,7 @@ public class TableGUI {
 		chckbxucnonie = new JCheckBox("\u00C1no/Nie");
 		frmExcelStuff.getContentPane().add(chckbxucnonie, "flowx,cell 1 3");
 		
-		lblHshzm = new JLabel("Triedenie HZM:");
+		lblHshzm = new JLabel("Triedenie EM:");
 		frmExcelStuff.getContentPane().add(lblHshzm, "cell 0 4");
 		
 		chckbxAnonie = new JCheckBox("\u00C1no/Nie");

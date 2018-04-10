@@ -242,7 +242,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka.getRow(j);
 
 					if(riadok[4].getContents().substring(0, 5).equals(hzm)){
-						if(riadok[7].getContents().equals("E1")){
+						if(riadok[7].getContents().equals("E")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
@@ -255,7 +255,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka2.getRow(j);
 
 					if(riadok[4].getContents().substring(0, 5).equals(hzm)){
-						if(riadok[7].getContents().equals("E1")){
+						if(riadok[7].getContents().equals("E")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
@@ -281,7 +281,7 @@ public class FilterExcelTable{
 					Label emp3 = new Label(6, counter2, "230 V", otherArrayFormat);
 					Label emp4 = new Label(7, counter2, "", otherArrayFormat);
 					Label emp5 = new Label(8, counter2, "", otherArrayFormat);
-					Label emp6 = new Label(9, counter2, "I.", otherArrayFormat);
+					Label emp6 = new Label(9, counter2, "", otherArrayFormat);
 					Label emp7 = new Label(10, counter2, "", otherArrayFormat);
 					Label emp8 = new Label(11, counter2, "", otherArrayFormat);
 					Label emp9 = new Label(12, counter2, "", otherArrayFormat);
@@ -542,7 +542,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka.getRow(j);
 
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E1")){
+						if(riadok[7].getContents().equals("E")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
@@ -555,7 +555,7 @@ public class FilterExcelTable{
 					Cell[] riadok = tabulka2.getRow(j);
 
 					if(riadok[3].getContents().equals(hs)){
-						if(riadok[7].getContents().equals("E1")){
+						if(riadok[7].getContents().equals("E")){
 							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
 
 						}
@@ -581,7 +581,7 @@ public class FilterExcelTable{
 					Label emp3 = new Label(6, counter2, "230 V", otherArrayFormat);
 					Label emp4 = new Label(7, counter2, "", otherArrayFormat);
 					Label emp5 = new Label(8, counter2, "", otherArrayFormat);
-					Label emp6 = new Label(9, counter2, "I.", otherArrayFormat);
+					Label emp6 = new Label(9, counter2, "", otherArrayFormat);
 					Label emp7 = new Label(10, counter2, "", otherArrayFormat);
 					Label emp8 = new Label(11, counter2, "", otherArrayFormat);
 					Label emp9 = new Label(12, counter2, "", otherArrayFormat);
