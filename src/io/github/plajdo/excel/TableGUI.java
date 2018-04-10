@@ -70,7 +70,7 @@ public class TableGUI {
 	private void initialize() {
 		frmExcelStuff = new JFrame();
 		frmExcelStuff.setTitle("Excel stuff");
-		frmExcelStuff.setBounds(100, 100, 450, 250);
+		frmExcelStuff.setBounds(100, 100, 500, 250);
 		frmExcelStuff.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][][grow][][grow][]"));
 		
