@@ -34,6 +34,8 @@ public class TableGUI {
 	private JButton btnSrlecc;
 	private JLabel lblProtokolOKontrole;
 	private JCheckBox chckbxucnonie;
+	private JLabel lblHshzm;
+	private JCheckBox chckbxAnonie;
 	
 	public static TableGUI getInstance(){
 		return instance;
@@ -153,19 +155,30 @@ public class TableGUI {
 		frmExcelStuff.getContentPane().add(lblProtokolOKontrole, "cell 0 3");
 		
 		chckbxucnonie = new JCheckBox("\u00C1no/Nie");
-		frmExcelStuff.getContentPane().add(chckbxucnonie, "cell 1 3");
+		frmExcelStuff.getContentPane().add(chckbxucnonie, "flowx,cell 1 3");
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
 		frmExcelStuff.getContentPane().add(progressBar, "cell 0 5 3 1,growx");
+		
+		lblHshzm = new JLabel("Triedenie HZM:");
+		frmExcelStuff.getContentPane().add(lblHshzm, "cell 1 3");
+		
+		chckbxAnonie = new JCheckBox("\u00C1no/Nie");
+		frmExcelStuff.getContentPane().add(chckbxAnonie, "cell 1 3");
 		
 		btnSpracova = new JButton("Spracova\u0165");
 		btnSpracova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Runnable r = () -> {
 					try{
-						FilterExcelTable.create(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
-						JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
+						if(chckbxAnonie.isSelected()){
+							FilterExcelTable.createHZM(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
+							JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
+						}else{
+							FilterExcelTable.createHS(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
+							JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}catch(Exception e1){
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(frmExcelStuff, "Chyba pri spracovan\u00ED tabu\u013Eky! Popis chyby:\n" + e1.toString(), "Chyba", JOptionPane.ERROR_MESSAGE);
