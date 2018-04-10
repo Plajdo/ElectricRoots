@@ -70,9 +70,9 @@ public class TableGUI {
 	private void initialize() {
 		frmExcelStuff = new JFrame();
 		frmExcelStuff.setTitle("Excel stuff");
-		frmExcelStuff.setBounds(100, 100, 500, 250);
+		frmExcelStuff.setBounds(100, 100, 550, 300);
 		frmExcelStuff.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][][grow][][grow][]"));
+		frmExcelStuff.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[][][][][][grow][][grow][]"));
 		
 		JLabel lblKmexls = new JLabel("Kme\u0148.xls:");
 		frmExcelStuff.getContentPane().add(lblKmexls, "cell 0 0,alignx trailing");
@@ -157,15 +157,15 @@ public class TableGUI {
 		chckbxucnonie = new JCheckBox("\u00C1no/Nie");
 		frmExcelStuff.getContentPane().add(chckbxucnonie, "flowx,cell 1 3");
 		
-		progressBar = new JProgressBar();
-		progressBar.setStringPainted(true);
-		frmExcelStuff.getContentPane().add(progressBar, "cell 0 5 3 1,growx");
-		
 		lblHshzm = new JLabel("Triedenie HZM:");
-		frmExcelStuff.getContentPane().add(lblHshzm, "cell 1 3");
+		frmExcelStuff.getContentPane().add(lblHshzm, "cell 0 4");
 		
 		chckbxAnonie = new JCheckBox("\u00C1no/Nie");
-		frmExcelStuff.getContentPane().add(chckbxAnonie, "cell 1 3");
+		frmExcelStuff.getContentPane().add(chckbxAnonie, "cell 1 4");
+		
+		progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
+		frmExcelStuff.getContentPane().add(progressBar, "cell 0 6 3 1,growx");
 		
 		btnSpracova = new JButton("Spracova\u0165");
 		btnSpracova.addActionListener(new ActionListener() {
@@ -197,7 +197,7 @@ public class TableGUI {
 			}
 
 		});
-		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 7");
+		frmExcelStuff.getContentPane().add(btnSpracova, "cell 0 8");
 		
 	}
 	
