@@ -34,6 +34,9 @@ public class Updater{
 		URL web = new URL(AutoUpdate.GithubData.getAssets_download_url());
 		Path out = Paths.get(System.getProperty("java.io.tmpdir") + File.separator + "excelstuff_" + AutoUpdate.GithubData.getRelease_name() + ".jar");
 		
+		File outFile = out.toFile();
+		outFile.deleteOnExit();
+		
 		try(InputStream in = web.openStream()){
 			Files.copy(in, out, StandardCopyOption.REPLACE_EXISTING);
 		}
@@ -44,7 +47,7 @@ public class Updater{
 		    jvm_location = System.getProperties().getProperty("java.home") + File.separator + "bin" + File.separator + "java";
 		}
 		
-		ProcessBuilder pb = new ProcessBuilder(jvm_location, "-jar", System.getProperty("java.io.tmpdir") + File.separator + "excelstuff_" + AutoUpdate.GithubData.getRelease_name() + ".jar");
+		ProcessBuilder pb = new ProcessBuilder(jvm_location, "-jar", outFile.toString());
 		pb.redirectOutput(Redirect.INHERIT);
 		pb.redirectError(Redirect.PIPE);
 		
