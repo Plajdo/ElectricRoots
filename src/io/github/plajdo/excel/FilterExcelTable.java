@@ -301,7 +301,7 @@ public class FilterExcelTable{
 						}else{
 							if(miestnost1 < miestnost2){
 								return -1;
-							}else if(poschodie1 > poschodie2){
+							}else if(miestnost1 > miestnost2){
 								return 1;
 							}else{
 								return 0;
