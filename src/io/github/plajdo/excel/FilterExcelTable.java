@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
@@ -243,7 +244,7 @@ public class FilterExcelTable{
 
 					if(riadok[4].getContents().substring(0, 5).equals(hzm)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents(), riadok[5].getContents()));
 
 						}
 
@@ -256,13 +257,63 @@ public class FilterExcelTable{
 
 					if(riadok[4].getContents().substring(0, 5).equals(hzm)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents(), riadok[5].getContents()));
 
 						}
 
 					}
 
 				}
+				
+				Comparator<Polozka> c = new Comparator<Polozka>(){
+
+					@Override
+					public int compare(Polozka arg0, Polozka arg1){
+						/*
+						 * Declare variables in 4 lines because I like it this way
+						 */
+						int poschodie1;
+						int poschodie2;
+						int miestnost1;
+						int miestnost2;
+						
+						/*
+						 * Try to parse integers from strings, if it fails, return 0
+						 */
+						try{
+							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));	//700000100227 -> 70000"01"00227
+							poschodie2 = Integer.parseInt(arg1.miestonum.substring(5, 7));
+							
+							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));	//700000100227 -> 7000001"00227"
+							miestnost2 = Integer.parseInt(arg1.miestonum.substring(7, 12));
+						}catch(Exception e){
+							e.printStackTrace();
+							return 0;
+						}
+						
+						/*
+						 * Compare and sort first using floors (lowest floors are at the end), then using rooms (highest rooms are at the end)
+						 */
+						if(poschodie1 < poschodie2){
+							return 1;
+						}else if(poschodie1 > poschodie2){
+							return -1;
+						}else{
+							if(miestnost1 < miestnost2){
+								return -1;
+							}else if(poschodie1 > poschodie2){
+								return 1;
+							}else{
+								return 0;
+							}
+							
+						}
+						
+					}
+					
+				};
+				
+				polozkaList.sort(c);
 
 				/*
 				 * 10 empty lines
@@ -276,7 +327,7 @@ public class FilterExcelTable{
 					Label invc = new Label(1, counter2, polozka.invc, otherArrayFormat);
 					Label meno = new Label(2, counter2, polozka.nazov, otherArrayFormat);
 					Label vyrc = new Label(3, counter2, polozka.vyrc, otherArrayFormat);
-					Label emp1 = new Label(4, counter2, polozka.miesto, otherArrayFormat);
+					Label emp1 = new Label(4, counter2, polozka.miestonum + " - " + polozka.miesto, otherArrayFormat);
 					Label emp2 = new Label(5, counter2, "Vyhovuje", otherArrayFormat);
 					Label emp3 = new Label(6, counter2, "230 V", otherArrayFormat);
 					Label emp4 = new Label(7, counter2, "", otherArrayFormat);
@@ -543,7 +594,7 @@ public class FilterExcelTable{
 
 					if(riadok[3].getContents().equals(hs)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents(), riadok[5].getContents()));
 
 						}
 
@@ -556,13 +607,63 @@ public class FilterExcelTable{
 
 					if(riadok[3].getContents().equals(hs)){
 						if(riadok[7].getContents().equals("E")){
-							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents() + " - " + riadok[5].getContents()));
+							polozkaList.add(new Polozka(riadok[0].getContents(), riadok[1].getContents(), riadok[2].getContents(), riadok[4].getContents(), riadok[5].getContents()));
 
 						}
 
 					}
 
 				}
+				
+				Comparator<Polozka> c = new Comparator<Polozka>(){
+
+					@Override
+					public int compare(Polozka arg0, Polozka arg1){
+						/*
+						 * Declare variables in 4 lines because I like it this way
+						 */
+						int poschodie1;
+						int poschodie2;
+						int miestnost1;
+						int miestnost2;
+						
+						/*
+						 * Try to parse integers from strings, if it fails, return 0
+						 */
+						try{
+							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));	//700000100227 -> 70000"01"00227
+							poschodie2 = Integer.parseInt(arg1.miestonum.substring(5, 7));
+							
+							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));	//700000100227 -> 7000001"00227"
+							miestnost2 = Integer.parseInt(arg1.miestonum.substring(7, 12));
+						}catch(Exception e){
+							e.printStackTrace();
+							return 0;
+						}
+						
+						/*
+						 * Compare and sort first using floors (lowest floors are at the end), then using rooms (highest rooms are at the end)
+						 */
+						if(poschodie1 < poschodie2){
+							return 1;
+						}else if(poschodie1 > poschodie2){
+							return -1;
+						}else{
+							if(miestnost1 < miestnost2){
+								return -1;
+							}else if(poschodie1 > poschodie2){
+								return 1;
+							}else{
+								return 0;
+							}
+							
+						}
+						
+					}
+					
+				};
+				
+				polozkaList.sort(c);
 
 				/*
 				 * 10 empty lines
