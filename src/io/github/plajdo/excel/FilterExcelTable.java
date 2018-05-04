@@ -133,7 +133,7 @@ public class FilterExcelTable{
 				sheet.setColumnView(1, 10);
 				sheet.setColumnView(2, 50);
 				sheet.setColumnView(3, 20);
-				sheet.setColumnView(4, 35);	//This row - location
+				sheet.setColumnView(4, 35);    //This row - location
 				sheet.setColumnView(5, 10);
 				sheet.setColumnView(6, 10);
 				sheet.setColumnView(7, 10);
@@ -152,11 +152,11 @@ public class FilterExcelTable{
 				sheet.mergeCells(12, 7, 14, 7);
 
 				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hzm, adresy), thinFormat);
-				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
-																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
+				Label entry02 = new Label(0, 2, protokol_o_kontrole ? "Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
+						"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
-				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? 	getName(hzm, adresy) :
-																						""), thinFormat);
+				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? getName(hzm, adresy) :
+						""), thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
 				Label entry06 = new Label(12, 5, "Kalibračný list č.", thinFormat);
@@ -264,7 +264,7 @@ public class FilterExcelTable{
 					}
 
 				}
-				
+
 				Comparator<Polozka> c = new Comparator<Polozka>(){
 
 					@Override
@@ -276,21 +276,21 @@ public class FilterExcelTable{
 						int poschodie2;
 						int miestnost1;
 						int miestnost2;
-						
+
 						/*
 						 * Try to parse integers from strings, if it fails, return 0
 						 */
 						try{
-							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));	//700000100227 -> 70000"01"00227
+							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));    //700000100227 -> 70000"01"00227
 							poschodie2 = Integer.parseInt(arg1.miestonum.substring(5, 7));
-							
-							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));	//700000100227 -> 7000001"00227"
+
+							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));    //700000100227 -> 7000001"00227"
 							miestnost2 = Integer.parseInt(arg1.miestonum.substring(7, 12));
 						}catch(Exception e){
 							e.printStackTrace();
 							return 0;
 						}
-						
+
 						/*
 						 * Compare and sort first using floors (lowest floors are at the end), then using rooms (highest rooms are at the end)
 						 */
@@ -306,13 +306,13 @@ public class FilterExcelTable{
 							}else{
 								return 0;
 							}
-							
+
 						}
-						
+
 					}
-					
+
 				};
-				
+
 				polozkaList.sort(c);
 
 				/*
@@ -389,7 +389,7 @@ public class FilterExcelTable{
 		kmen.close();
 
 	}
-	
+
 	public static void createHS(File kmenFile, File image, String outputDir, boolean protokol) throws Exception{
 		gui.setProgress(-1);
 
@@ -483,7 +483,7 @@ public class FilterExcelTable{
 				sheet.setColumnView(1, 10);
 				sheet.setColumnView(2, 50);
 				sheet.setColumnView(3, 20);
-				sheet.setColumnView(4, 35);	//This row - location
+				sheet.setColumnView(4, 35);    //This row - location
 				sheet.setColumnView(5, 10);
 				sheet.setColumnView(6, 10);
 				sheet.setColumnView(7, 10);
@@ -502,11 +502,11 @@ public class FilterExcelTable{
 				sheet.mergeCells(12, 7, 14, 7);
 
 				Label entry01 = new Label(0, 0, "Prevádzka: " + getAddress(hs, adresy), thinFormat);
-				Label entry02 = new Label(0, 2, protokol_o_kontrole ? 	"Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
-																		"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
+				Label entry02 = new Label(0, 2, protokol_o_kontrole ? "Protokol o kontrole elektrických spotrebičov podľa STN 33 1610 a v zmysle Vyhlášky MPSVaR č.508/2009 Z.z." :
+						"Protokol o odbornej prehliadke a skúške el. ručného náradia podľa STN 33 1600 a elektrických spotrebičov podľa STN 33 1610 a v zmysle vyh. MPSVaR č.508/2009 Z.z.", thiccFormat);
 				Label entry03 = new Label(0, 5, "Vykonaná dňa:", thinFormat);
-				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? 	getName(hs, adresy) :
-																						""), thinFormat);
+				Label entry3a = new Label(3, 5, "Vykonal: " + (protokol_o_kontrole ? getName(hs, adresy) :
+						""), thinFormat);
 				Label entry04 = new Label(5, 5, "Merací prístroj:", thinFormat);
 				Label entry05 = new Label(9, 5, "Dátum kalibrácie:", thinFormat);
 				Label entry06 = new Label(12, 5, "Kalibračný list č.", thinFormat);
@@ -614,7 +614,10 @@ public class FilterExcelTable{
 					}
 
 				}
-				
+
+				/*
+				 * DO NOT SORT THE HS BLYAT
+				 */
 				Comparator<Polozka> c = new Comparator<Polozka>(){
 
 					@Override
@@ -626,21 +629,21 @@ public class FilterExcelTable{
 						int poschodie2;
 						int miestnost1;
 						int miestnost2;
-						
+
 						/*
 						 * Try to parse integers from strings, if it fails, return 0
 						 */
 						try{
-							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));	//700000100227 -> 70000"01"00227
+							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));    //700000100227 -> 70000"01"00227
 							poschodie2 = Integer.parseInt(arg1.miestonum.substring(5, 7));
-							
-							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));	//700000100227 -> 7000001"00227"
+
+							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));    //700000100227 -> 7000001"00227"
 							miestnost2 = Integer.parseInt(arg1.miestonum.substring(7, 12));
 						}catch(Exception e){
 							e.printStackTrace();
 							return 0;
 						}
-						
+
 						/*
 						 * Compare and sort first using floors (lowest floors are at the end), then using rooms (highest rooms are at the end)
 						 */
@@ -656,13 +659,13 @@ public class FilterExcelTable{
 							}else{
 								return 0;
 							}
-							
+
 						}
-						
+
 					}
-					
+
 				};
-				
+
 				polozkaList.sort(c);
 
 				/*
@@ -766,7 +769,7 @@ public class FilterExcelTable{
 
 	private static String getName(String hzm, Sheet mena){
 		Cell[] columns = mena.getColumn(0);
-		
+
 		for(int i = 1; i < columns.length - 1; i++){
 			Cell cell = columns[i];
 			if(hzm.startsWith(cell.getContents())){
