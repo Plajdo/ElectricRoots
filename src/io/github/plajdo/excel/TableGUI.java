@@ -157,7 +157,7 @@ public class TableGUI {
 		chckbxucnonie = new JCheckBox("\u00C1no/Nie");
 		frmExcelStuff.getContentPane().add(chckbxucnonie, "flowx,cell 1 3");
 		
-		lblHshzm = new JLabel("Triedenie EM:");
+		lblHshzm = new JLabel("Triedenie HS (pre CFH):");
 		frmExcelStuff.getContentPane().add(lblHshzm, "cell 0 4");
 		
 		chckbxAnonie = new JCheckBox("\u00C1no/Nie");
@@ -172,7 +172,7 @@ public class TableGUI {
 			public void actionPerformed(ActionEvent e) {
 				Runnable r = () -> {
 					try{
-						if(chckbxAnonie.isSelected()){
+						if(!chckbxAnonie.isSelected()){
 							FilterExcelTable.createHZM(new File(textField.getText()), new File(textField_2.getText()), textField_1.getText(), chckbxucnonie.isSelected());	
 							JOptionPane.showMessageDialog(frmExcelStuff, "Dokon\u010Den\u00E9", "Hotovo", JOptionPane.INFORMATION_MESSAGE);
 						}else{

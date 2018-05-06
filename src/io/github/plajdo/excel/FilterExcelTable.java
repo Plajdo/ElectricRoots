@@ -403,7 +403,7 @@ public class FilterExcelTable{
 
 		protokol_o_kontrole = protokol;
 
-		TreeSet<String> strediskaSet = new TreeSet<String>();
+		TreeSet<String> strediskaSet = new TreeSet<>();
 
 		Workbook kmen = Workbook.getWorkbook(kmenFile);
 		Sheet tabulka = kmen.getSheet(0);
@@ -438,7 +438,7 @@ public class FilterExcelTable{
 
 		totalParts *= 2;
 
-		ArrayList<String> strediskaList = new ArrayList<String>(strediskaSet);
+		ArrayList<String> strediskaList = new ArrayList<>(strediskaSet);
 		strediskaList.forEach((hs) -> {
 			try{
 				WritableWorkbook output = Workbook.createWorkbook(new File(outputDir + "output_" + hs + ".xls"));
@@ -615,51 +615,38 @@ public class FilterExcelTable{
 
 				}
 
-				/*
-				 * DO NOT SORT THE HS BLYAT
-				 */
 				Comparator<Polozka> c = new Comparator<Polozka>(){
 
 					@Override
 					public int compare(Polozka arg0, Polozka arg1){
 						/*
-						 * Declare variables in 4 lines because I like it this way
+						 * Declare variables in 2 lines because I like it this way again
 						 */
-						int poschodie1;
-						int poschodie2;
-						int miestnost1;
-						int miestnost2;
+						int budova1;
+						int budova2;
 
 						/*
 						 * Try to parse integers from strings, if it fails, return 0
 						 */
 						try{
-							poschodie1 = Integer.parseInt(arg0.miestonum.substring(5, 7));    //700000100227 -> 70000"01"00227
-							poschodie2 = Integer.parseInt(arg1.miestonum.substring(5, 7));
-
-							miestnost1 = Integer.parseInt(arg0.miestonum.substring(7, 12));    //700000100227 -> 7000001"00227"
-							miestnost2 = Integer.parseInt(arg1.miestonum.substring(7, 12));
+							budova1 = Integer.parseInt(arg0.miestonum.substring(5, 10));    //1008006900 -> 10080"06900"
+							budova2 = Integer.parseInt(arg1.miestonum.substring(5, 10));
 						}catch(Exception e){
 							e.printStackTrace();
-							return 0;
+							budova1 = Integer.parseInt(arg0.miestonum);
+							budova2 = Integer.parseInt(arg1.miestonum);
+
 						}
 
 						/*
 						 * Compare and sort first using floors (lowest floors are at the end), then using rooms (highest rooms are at the end)
 						 */
-						if(poschodie1 < poschodie2){
+						if(budova1 < budova2){
 							return 1;
-						}else if(poschodie1 > poschodie2){
+						}else if(budova1 > budova2){
 							return -1;
 						}else{
-							if(miestnost1 < miestnost2){
-								return -1;
-							}else if(poschodie1 > poschodie2){
-								return 1;
-							}else{
-								return 0;
-							}
-
+							return 0;
 						}
 
 					}
@@ -750,7 +737,7 @@ public class FilterExcelTable{
 	private static void setBar(double percent){
 		gui.setProgress((int)Math.round(getPercent(doneParts, totalParts)));
 	}
-
+	
 	private static String getAddress(String hzm, Sheet adresy){
 		Cell[] columns = adresy.getColumn(0);
 
