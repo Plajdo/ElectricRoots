@@ -1,5 +1,6 @@
 *.xls
 bin
+out
 .settings
 .idea
 *.iml
